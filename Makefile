@@ -95,3 +95,9 @@ commit-hook: scripts/pre-commit-hook.sh
 	cp -f scripts/pre-commit-hook.sh .git/hooks/pre-commit
 
 .PHONY: test all clean install uninstall fmt
+
+compile-flags:
+	@printf "%s\n" \
+                $(foreach flag,$(CFLAGS),$(flag)) \
+		$(foreach dir,$(wildcard deps/*/),"-I./$(dir)") \
+		> compile_flags.txt
